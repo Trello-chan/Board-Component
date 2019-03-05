@@ -1,5 +1,7 @@
 node_modules
 config.js
 database/seedData/data/
-bundle.js
+*bundle.js
 yarn-error.log
+.aws.json
+.env

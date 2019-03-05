@@ -5,7 +5,7 @@ module.exports = {
   entry: ['@babel/polyfill/noConflict', path.join(__dirname, './client/src/index.js')],
   output: {
     path: path.resolve(__dirname, './client/dist'),
-    filename: 'bundle.js',
+    filename: 'board-bundle.js',
   },
   module: {
     rules: [

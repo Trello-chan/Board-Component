@@ -14,6 +14,8 @@ class BoardService extends Component {
     }
   }
 
+  //TODO update database with all new content on specific actions and on unmount
+
   onDragEnd = (result) => {
     console.log(result)
     let { destination, source, draggableId } = result;
@@ -35,6 +37,7 @@ class BoardService extends Component {
 
 
     //if only card order has changed 
+    //TODO: this rerenders ALL lists, see if we can update only one list
     this.handleCardChange(destination, source);
   }
 

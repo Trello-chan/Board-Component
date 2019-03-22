@@ -17,18 +17,18 @@ class BoardService extends Component {
   //TODO update database with all new content on specific actions and on unmount
 
   onDragEnd = (result) => {
-    console.log(result)
     let { destination, source, draggableId } = result;
-
-    //if no destination
+    console.log(result)
+    //if destination is not within a droppable
     if (!destination) {
       return;
     } 
 
-    //if location didn't change, then don't do anything (dropped at original position)
+    //if droppable is the same AND we didnt move it to a new index
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
+
 
     //if list order has changed, will have to change column order
     // let { columns, lists } = this.state;
@@ -43,9 +43,10 @@ class BoardService extends Component {
 
   handleCardChange = (destination, source) => {
     let lists = {...this.state.lists};
-    let currentList = lists[destination.droppableId];
-    let { cards } = currentList;
-    cards.splice(destination.index, 0, cards.splice(source.index, 1)[0]);
+
+    let sourceList = lists[source.droppableId];
+    let destinationList = lists[destination.droppableId];
+    destinationList.cards.splice(destination.index, 0, sourceList.cards.splice(source.index, 1)[0]);
 
     this.setState({ lists });
   }

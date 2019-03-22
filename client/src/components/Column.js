@@ -12,12 +12,11 @@ class Column extends Component {
   }
 
   render() {
-    let { list } = this.props;
-    console.log(list)
+    let { list, listId } = this.props;
     return(
       <Container>
         <Title>{list.name}</Title>
-        <Droppable droppableId={list.id}>
+        <Droppable droppableId={listId}>
           {provided =>
             <BoardList
               ref={provided.innerRef}

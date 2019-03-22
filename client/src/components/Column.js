@@ -16,11 +16,14 @@ class Column extends Component {
     return(
       <Container>
         <Title>{list.name}</Title>
-        <Droppable droppableId={listId}>
-          {provided =>
+        <Droppable 
+          droppableId={listId}
+        >
+          {(provided, snapshot) =>
             <BoardList
               ref={provided.innerRef}
               {...provided.droppableProps}
+              isDraggingOver={snapshot.isDraggingOver}
             >
               {list.cards.map((card, index) => <Card key={index} index={index} card={card}/>)}
               {provided.placeholder}
@@ -36,6 +39,10 @@ const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
   border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  max-width: 275px;
+  min-width: 275px;
 `;
 
 const Title = styled.h3`
@@ -43,7 +50,9 @@ const Title = styled.h3`
 `;
 
 const BoardList = styled.div`
-padding: 8px;
+  background-color: ${props => props.isDraggingOver ? 'rgba(100,100,100,0.5)' : 'white'};
+  padding: 8px;
+  flex-grow: 1
 `;
 
 export default Column;

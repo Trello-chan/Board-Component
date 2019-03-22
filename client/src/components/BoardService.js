@@ -16,25 +16,13 @@ class BoardService extends Component {
 
   //TODO update database with all new content on specific actions and on unmount
 
-  onDragEnd = (result) => {
+  onCardDragEnd = (result) => {
     let { destination, source, draggableId } = result;
-    console.log(result)
     //if destination is not within a droppable
-    if (!destination) {
-      return;
-    } 
+    if (!destination) return;
 
     //if droppable is the same AND we didnt move it to a new index
-    if (destination.droppableId === source.droppableId && destination.index === source.index) {
-      return;
-    }
-
-
-    //if list order has changed, will have to change column order
-    // let { columns, lists } = this.state;
-    // let newColumns = [...columns];
-
-
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
     //if only card order has changed 
     //TODO: this rerenders ALL lists, see if we can update only one list
@@ -57,17 +45,20 @@ class BoardService extends Component {
       <DragDropContext
         // onDragStart
         // onDragUpdate
-        onDragEnd={this.onDragEnd}
+        onDragEnd={this.onCardDragEnd}
       >
-        <div>
-          hello
+        <ColumnContainer>
           {columns.map((listId, index) => 
             <Column key={index} list={lists[listId]} listId={listId}/>
           )}
-        </div>
+        </ColumnContainer>
       </DragDropContext>
     )
   }
 }
+
+const ColumnContainer = styled.div`
+  display: flex;
+`
 
 export default BoardService;

@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: ['@babel/polyfill/noConflict', path.join(__dirname, './client/src/index.js')],
   output: {
     path: path.resolve(__dirname, './client/dist'),

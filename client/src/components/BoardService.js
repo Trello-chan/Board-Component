@@ -32,16 +32,14 @@ class BoardService extends Component {
   //TODO: this rerenders ALL lists, see if we can update only one list
   handleCardChange = (destination, source) => {
     let lists = {...this.state.lists};
-
     let sourceList = lists[source.droppableId];
-    let destinationList = lists[destination.droppableId];
+    let destinationList = {...lists[destination.droppableId]};
     destinationList.cards.splice(destination.index, 0, sourceList.cards.splice(source.index, 1)[0]);
-
+    lists[destination.droppableId] = destinationList;
     this.setState({ lists });
   }
 
   handleListChange = (destination, source) => {
-    console.log('here')
     let columns = [...this.state.columns];
     columns.splice(destination.index, 0, columns.splice(source.index, 1)[0]);
     this.setState({ columns });
@@ -50,37 +48,42 @@ class BoardService extends Component {
   render() {
     let { columns, lists } = this.state;
     return (
-      <DragDropContext
-        // onDragStart
-        // onDragUpdate
-        onDragEnd={this.onCardDragEnd}
-      >
-        <Droppable
-          droppableId={'master-list'}
-          direction="horizontal"
-          type="list"
+      <BoardServiceContainer>
+        <DragDropContext
+          onDragEnd={this.onCardDragEnd}
         >
-        {(provided, snapshot) =>
-          <ColumnContainer
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            isDraggingOver={snapshot.isDraggingOver}
+          <Droppable
+            droppableId={'master-list'}
+            direction="horizontal"
+            type="list"
           >
-            {columns.map((listId, index) => 
-              <Column key={index} index={index} list={lists[listId]} listId={listId}/>
-            )}
-            {provided.placeholder}
-          </ColumnContainer>
-        }
-        </Droppable>
-      </DragDropContext>
+          {(provided, snapshot) =>
+            <ColumnContainer
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                isDraggingOver={snapshot.isDraggingOver}
+            >
+              {columns.map((listId, index) => 
+                <Column key={index} index={index} list={lists[listId]} listId={listId}/>
+              )}
+              {provided.placeholder}
+            </ColumnContainer>
+          }
+          </Droppable>
+        </DragDropContext>
+      </BoardServiceContainer>
     )
   }
 }
 
+const BoardServiceContainer = styled.div`
+  display: inline-flex;
+`
+
 const ColumnContainer = styled.div`
   display: flex;
   max-height: 90vh;
+  background-color: ${props => props.isDraggingOver ? 'rgba(100,100,100,0.5)' : 'white'};
 `
 
 export default BoardService;

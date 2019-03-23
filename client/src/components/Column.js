@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
-import Card from './Card';
+import CardContainer from './CardContainer';
 
 class Column extends Component {
-  constructor(props) {
-    super(props);
-    this.state ={
-
-    }
+  shouldComponentUpdate(nextProps) {
+    return !(nextProps.list === this.props.list);
   }
 
   render() {
@@ -18,12 +15,11 @@ class Column extends Component {
         {(provided, snapshot) => 
           <Container
             {...provided.draggableProps}
-            {...provided.dragHandleProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
             draggingOver={snapshot.draggingOver}
           >
-            <Title>{list.name}</Title>
+            <Title {...provided.dragHandleProps}>{list.name}</Title>
             <Droppable 
               droppableId={listId}
               type="card"
@@ -34,7 +30,7 @@ class Column extends Component {
                   {...provided.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
                 >
-                  {list.cards.map((card, index) => <Card key={index} index={index} card={card}/>)}
+                  <CardContainer list={list}/>
                   {provided.placeholder}
                 </BoardList>
               }
@@ -54,6 +50,7 @@ const Container = styled.div`
   flex-direction: column;
   max-width: 275px;
   min-width: 275px;
+  background-color: white;
 `;
 
 const Title = styled.h3`

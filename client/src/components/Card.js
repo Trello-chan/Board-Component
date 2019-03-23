@@ -1,33 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
-class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state ={
-
+const Card = ({ card, index }) =>
+  <Draggable draggableId={card.id} index={index}>
+    {(provided, snapshot) => 
+      <Container
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        ref={provided.innerRef}
+        isDragging={snapshot.isDragging}
+        draggingOver={snapshot.draggingOver}
+      >
+      {card.label}
+      </Container>
     }
-  }
-
-  render(){ 
-    let { card, index } = this.props;
-    return (
-      <Draggable draggableId={card.id} index={index}>
-        {(provided, snapshot) => 
-          <Container
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            isDragging={snapshot.isDragging}
-            draggingOver={snapshot.draggingOver}
-          >
-          {card.label}
-          </Container>
-        }
-      </Draggable>
-    )
-  }
-}
+  </Draggable>
 
 const Container = styled.div`
   border: 1px solid lightgrey;

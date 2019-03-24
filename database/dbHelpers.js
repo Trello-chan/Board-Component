@@ -1,18 +1,19 @@
 // import Sequelize from 'sequelize';
-// import SQL_connection from './index';
+import SQL_connection from './index';
 import { Board, Card, Card_Member, List, Member, Team } from './schema';
 
 const getCardsHelper = ({ board_id }) => 
-  List.findAll({ 
-    where: {
-      board_id
-    },
-    include: {
-      model: Cards,
-      as: 'cards',
-      where: { list_id: {$col: 'List.id' }}
-    }
-  });
+  SQL_connection.query(`select l.*, json_agg(c.*) as cards from lists l inner join cards c on c.list_id = l.id AND l.board_id = ${board_id} group by l.id;`)
+  // List.findAll({ 
+  //   where: {
+  //     board_id
+  //   },
+  //   include: {
+  //     model: Card,
+  //     as: 'cards',
+  //     where: { list_id: {$col: 'List.id' }}
+  //   }
+  // });
 
 const createListHelper = ({ name, board_id }) =>
   List.create({

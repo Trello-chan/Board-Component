@@ -43,10 +43,12 @@ const removeCardHelper = (idObj) =>
   Card.destroy({ where: idObj})
 
 const createCardMemberAssociation = ({ card_id, member_id }) =>
-  Card_Member.create({
-    card_id,
-    member_id
-  })
+  SQL_connection.query(`insert into card_members ("card_id", "member_id") values (${card_id},${member_id})`)
+  // Card_Member.findOrCreate({
+  //   where: {card_id,
+  //   member_id
+  //   }
+  // })
 
 const removeCardMemberAssociation = ({ card_id, member_id }) =>
   Card_Member.destroy({ where: { card_id, member_id }});

@@ -6,6 +6,8 @@
   "scripts": {
     "build:bundle": "webpack -w",
     "build:server": "webpack-dev-server --hot --inline",
+    "create": "node database/seedData/bin/createEntry.js",
+    "seed": "node database/seedData/bin/seedEntry.js",
     "start": "nodemon server/entry.js --ignore 'client/'",
     "test": "NODE_ENV=jest jest --detectOpenHandles --forceExit"
   },
@@ -31,6 +33,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.4",
     "compression-webpack-plugin": "^2.0.0",
+    "faker": "^4.1.0",
     "grunt": "^1.0.3",
     "grunt-aws": "^0.7.1",
     "grunt-contrib-connect": "^2.0.0",

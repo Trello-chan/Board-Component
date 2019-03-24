@@ -51,8 +51,8 @@ const unlinkCardMember = (req, res) => {
 
 const removeList = (req, res) => {
   //should destroy all related cards
-  removeListHelper({ id: req.body.id })
-    .then(() => removeCardHelper({ list_id: id }))
+  removeListHelper(req.body)
+    .then(() => removeCardHelper({ list_id: req.body.id }))
     .then(() => res.status(201).send('success'))
     .catch(err => errorHander(err, res));
 

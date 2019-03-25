@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
-import CardModal from './Card/Card';
+import CardModal from './Card/CardOverlay';
 
-const Card = ({ card, index }) => {
+const Card = ({ card, index, list }) => {
   const [showOverlay, setOverlay] = useState(false);
   
   return (<Draggable draggableId={`card.${card.id}`} index={index}>
@@ -16,7 +16,7 @@ const Card = ({ card, index }) => {
         draggingOver={snapshot.draggingOver}
       >
         <div onClick={() => setOverlay(true)}>{card.label}</div>
-        {showOverlay && <CardModal card={card} handleCardClick={() => setOverlay(false)}/>}
+        {showOverlay && <CardModal card={card} list={list} handleCardClick={() => setOverlay(false)}/>}
       </Container>
     }
   </Draggable>)

@@ -32,7 +32,11 @@ class Detail extends Component {
         </div>
         <div>
           <CardImage />
-          Comment
+          <div>
+            <div>Comment</div>
+            <br/>
+            <div><b>for MVP, we will not put a lot in the Card Overlay</b></div>
+          </div>
         </div>
         <div>
           <ActivityImage />

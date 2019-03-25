@@ -1,50 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Actions from './Actions';
 import Add from './Add';
 import Detail from './Detail';
 import CardImage from './cssImages/cards';
 
-class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state ={
-
-    }
-  }
-
-  render() {
-    let { card, handleCardClick } = this.props;
-    return (
-      <ModalOverlay onClick={() => handleCardClick(null)}>
-        <CardDisplay onClick={(e) => e.stopPropagation()}>
-          <CardHeader>
-            <CardImage />
-            <div>
-              <CardHeaderTextArea>{card.label}</CardHeaderTextArea>
-              <div>in list <u>{card.boardId}</u></div>
-            </div>
-            <div onClick={() => handleCardClick(null)}>&#215;</div>
-          </CardHeader>
-          <div>
-            <Detail card={card}/>
-            {/* instead of making entire screen scroll, the left half should scroll if height exceeds CardDisplay */}
-            <div>
-              <Actions />
-              <Add />
-            </div>
-          </div>
-        </CardDisplay>
-      </ModalOverlay>
-    )
-  }
-}
+const CardOverlay = ({ card, handleCardClick, list }) => 
+  <ModalOverlay onClick={handleCardClick}>
+    <CardDisplay onClick={(e) => e.stopPropagation()}>
+      <CardHeader>
+        <CardImage />
+        <div>
+          <CardHeaderTextArea>{card.label}</CardHeaderTextArea>
+          <div>in list <u>{list}</u></div>
+        </div>
+        <div onClick={handleCardClick}>&#215;</div>
+      </CardHeader>
+      <div>
+        <Detail card={card}/>
+        <div>
+          <Actions />
+          <Add />
+        </div>
+      </div>
+    </CardDisplay>
+  </ModalOverlay>
 
 const ModalOverlay = styled.div`
   background-color: rgba(0,0,0,.64);
   display: flex;
-  height: 100vh; 
-  ${'' /* maybe taller */}
+  height: 100vh;
   justify-content: center;
   left: 0;
   position: fixed;
@@ -54,6 +39,7 @@ const ModalOverlay = styled.div`
 `;
 
 const CardDisplay = styled.div`
+  cursor: default;
   background-color: #ebeef0; 
   border-radius: 2px;
   height: 650px;
@@ -61,8 +47,6 @@ const CardDisplay = styled.div`
   position: absolute;
   width: 730px;
   top: 45px;
-
-  ${'' /* when screen is < 750px, width changes to possibly to flex screen width */}
 
   >:nth-child(2) {
     display: flex;
@@ -115,4 +99,5 @@ const CardHeaderTextArea = styled.textarea`
     outline: none;
   }
 `;
-export default Card;
+
+export default CardOverlay;

@@ -11,7 +11,7 @@ class CardContainer extends Component {
   render(){
     let { list } = this.props;
     return (
-      list.cards.map((card, index) => <Card key={index} index={index} card={card}/>)
+      list.cards.map((card, index) => <Card key={index} index={index} list={list.name} card={card}/>)
     )
   }
 }

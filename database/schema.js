@@ -17,20 +17,24 @@ const Board = SQL_connection.define('board', {
 
 const List = SQL_connection.define('list', {
   name: Sequelize.STRING,
+  column_index: { type: Sequelize.INTEGER, allowNull: false },
   board_id: { type: Sequelize.INTEGER, references: { model: 'boards', key: 'id' }, onUpdate: 'CASCADE', onDelete: 'CASCADE'}
 })
-
-// List.hasMany(Card);
 
 const Card = SQL_connection.define('card', {
   label: Sequelize.STRING,
   description: Sequelize.STRING,
-  comment: Sequelize.STRING,
   list_index: { type: Sequelize.INTEGER, allowNull: false },
   // list_id: { type: Sequelize.INTEGER, references: { model: 'lists', key: 'id' }, onUpdate: 'CASCADE', onDelete: 'CASCADE'}
 });
 
 Card.belongsTo(List, { foreignKey: 'list_id' });
+
+const Comment = SQL_connection.define('comment', {
+  text: { type: Sequelize.STRING, allowNull: false },
+})
+
+Comment.belongsTo(Card, { foreignKey: 'card_id' });
 
 const Card_Member = SQL_connection.define('card_member', {});
 
@@ -45,5 +49,6 @@ export {
   Card_Member,
   List,
   Member,
-  Team
+  Team,
+  Comment
 }

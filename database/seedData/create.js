@@ -57,7 +57,7 @@ const createBoards = () => {
 const createLists = () => { //so this should create id's 4 at a time, entries * 4
   let lists = '';
   for (let i = 0; i < entries; i++) {  //each entry is a board
-    lists += `Todo\t${i+1}\nIn Progress\t${i+1}\nCompleted\t${i+1}\nBlockers\t${i+1}\n`;
+    lists += `Todo\t0\t${i+1}\nIn Progress\t1\t${i+1}\nCompleted\t2\t${i+1}\nBlockers\t3\t${i+1}\n`;
   }
   listDir.write(lists);
 }
@@ -76,10 +76,9 @@ const createCards = () => {
     for (let i = 0; i < numberOfCardsToMake; i++) {
       let cardLabel = faker.random.words();
       let cardDescription = faker.random.words();
-      let cardComment = faker.random.words();
       let list_id = currentListId;
       let list_index = i;
-      cards += `${cardLabel}\t${cardDescription}\t${cardComment}\t${list_id}\t${list_index}\n`;
+      cards += `${cardLabel}\t${cardDescription}\t${list_id}\t${list_index}\n`;
       totalNumCards += 1;
     }
     currentListId += 1;

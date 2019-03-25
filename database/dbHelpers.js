@@ -1,23 +1,25 @@
 // import Sequelize from 'sequelize';
 import SQL_connection from './index';
-import { Board, Card, Card_Member, List, Member, Team } from './schema';
+import { Board, Card, Card_Member, List, Member, Team, Comment } from './schema';
 
 const getCardsHelper = ({ board_id }) => 
   SQL_connection.query(`select l.*, json_agg(c.*) as cards from lists l inner join cards c on c.list_id = l.id AND l.board_id = ${board_id} group by l.id;`)
-  // List.findAll({ 
-  //   where: {
-  //     board_id
-  //   },
-  //   include: {
-  //     model: Card,
-  //     as: 'cards',
-  //     where: { list_id: {$col: 'List.id' }}
-  //   }
-  // });
+  /* right now this returns
+  [
+    { //list 1
+      cards:[
+        { //card 1
+          //TODO: need comment alias here in the form of an array
+        }
+      ]
+    }
+  ]
+  */
 
-const createListHelper = ({ name, board_id }) =>
+const createListHelper = ({ name, column_index, board_id }) =>
   List.create({
     name,
+    column_index,
     board_id
   })
 

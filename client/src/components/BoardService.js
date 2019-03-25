@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import axios from 'axios';
 
 import Column from './Column';
 
@@ -15,9 +16,22 @@ class BoardService extends Component {
   }
 
   //TODO update database with all new content on specific actions and on unmount
+  componentDidMount() {
+    let options = {
+      params: {
+        board_id: 1
+      }
+    }
+
+    axios
+      .get('/api/cards', options)
+      .then(({ data }) => this.setState({ lists: data.lists, columns: data.columns }))
+      .catch(() => console.log('error in BoardService CDM'))
+  }
+
 
   onCardDragEnd = (result) => {
-    let { destination, source, draggableId, type } = result;
+    let { destination, source, type } = result;
 
     //if destination is not within a droppable
     if (!destination) return;
@@ -29,13 +43,13 @@ class BoardService extends Component {
     this[handler](destination, source);
   }
 
-  //TODO: this rerenders ALL lists, see if we can update only one list
   handleCardChange = (destination, source) => {
     let lists = {...this.state.lists};
-    let sourceList = lists[source.droppableId];
-    let destinationList = {...lists[destination.droppableId]};
+    let sourceList = {...lists[source.droppableId.split('.')[1]]};
+    let destinationList = {...lists[destination.droppableId.split('.')[1]]};
     destinationList.cards.splice(destination.index, 0, sourceList.cards.splice(source.index, 1)[0]);
-    lists[destination.droppableId] = destinationList;
+    lists[destination.droppableId.split('.')[1]] = destinationList;
+    lists[source.droppableId.split('.')[1]] = sourceList;
     this.setState({ lists });
   }
 

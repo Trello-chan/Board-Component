@@ -2,7 +2,7 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
 const Card = ({ card, index }) =>
-  <Draggable draggableId={card.id} index={index}>
+  <Draggable draggableId={`card.${card.id}`} index={index}>
     {(provided, snapshot) => 
       <Container
         {...provided.draggableProps}

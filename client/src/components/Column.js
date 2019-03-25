@@ -11,7 +11,7 @@ class Column extends Component {
   render() {
     let { list, listId, index } = this.props;
     return(
-      <Draggable draggableId={listId} index={index}>
+      <Draggable draggableId={`list.${listId}`} index={index}>
         {(provided, snapshot) => 
           <Container
             {...provided.draggableProps}
@@ -21,7 +21,7 @@ class Column extends Component {
           >
             <Title {...provided.dragHandleProps}>{list.name}</Title>
             <Droppable 
-              droppableId={listId}
+              droppableId={`list.${listId}`}
               type="card"
             >
               {(provided, snapshot) =>

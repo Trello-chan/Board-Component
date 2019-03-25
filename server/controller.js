@@ -16,7 +16,16 @@ const errorHander = (err, res) => {
 
 const getCards = (req, res) => {
   getCardsHelper(req.query)
-    .then(cards => res.status(200).send(cards))
+    .then(([listsAndCards]) => {
+      let lists = {};
+      let columns = new Array(listsAndCards.length);
+      for (let list of listsAndCards) {
+        columns[list.column_index] = list.id;
+        lists[list.id] = list;
+        list.cards.sort((a,b) => a.list_index - b.list_index);
+      }
+      res.status(200).send({ lists, columns });
+    })
     .catch(err => errorHander(err, res));
 };
   

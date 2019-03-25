@@ -19,26 +19,26 @@ class Column extends Component {
             isDragging={snapshot.isDragging}
             draggingOver={snapshot.draggingOver}
           >
-            <Title {...provided.dragHandleProps}>{list.name}</Title>
-            <Droppable 
-              droppableId={`list.${listId}`}
-              type="card"
-            >
-              {(provided, snapshot) =>
-                <BoardList
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  isDraggingOver={snapshot.isDraggingOver}
-                >
-                  <CardContainer list={list}/>
-                  {provided.placeholder}
-                </BoardList>
-              }
-            </Droppable>
+            <ListWrapper>
+              <Title {...provided.dragHandleProps}>{list.name}</Title>
+              <Droppable 
+                droppableId={`list.${listId}`}
+                type="card"
+              >
+                {(provided, snapshot) =>
+                  <BoardList
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    isDraggingOver={snapshot.isDraggingOver}
+                  >
+                    <CardContainer list={list}/>
+                    {provided.placeholder}
+                  </BoardList>
+                }
+              </Droppable>
+            </ListWrapper>
           </Container>
         }
-
-
       </Draggable>
     )
   }
@@ -49,15 +49,19 @@ const Container = styled.div`
   font-family: Helvetica Neue,Arial,Helvetica,sans-serif;
   font-size: 14px;
   margin: 4px;
-  border: 1px solid lightgrey;
-  border-radius: 3px;
   display: flex;
   flex-direction: column;
   max-width: 275px;
   min-width: 275px;
-  background-color: #dfe3e6;
-  height: auto;
+  height: 100%;
 `;
+
+const ListWrapper = styled.div`
+  background-color: #dfe3e6;
+  max-height: 100%;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+`
 
 const Title = styled.div`
   padding: 8px;
@@ -71,9 +75,5 @@ const BoardList = styled.div`
   max-height: 100%;
   overflow: scroll;
 `;
-
-const BlankSpace = styled.div`
-  height: auto;
-`
 
 export default Column;

@@ -92,6 +92,7 @@ class BoardService extends Component {
 
 const BoardServiceContainer = styled.div`
   display: inline-flex;
+  height: 90vh;
 `
 
 const ColumnContainer = styled.div`

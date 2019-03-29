@@ -13,7 +13,7 @@ app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.use('/api', router)
+app.use('/board-api', router)
 
 // app.use('*', (req, res) => res.sendFile(path.resolve(__dirname, '../client/dist/index.html')));
 

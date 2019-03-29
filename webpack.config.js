@@ -3,11 +3,20 @@ const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  entry: ['@babel/polyfill/noConflict', path.join(__dirname, './client/src/index.js')],
+  mode: 'production',
+  entry: {
+    board: ['@babel/polyfill/noConflict', path.join(__dirname, './client/src/index.js')],
+    cardOverlay: ['@babel/polyfill/noConflict', path.join(__dirname, './client/src/components/CardOverlay/CardOverlay.js')]
+  },
   output: {
     path: path.resolve(__dirname, './client/dist'),
-    filename: 'board-bundle.js',
+    filename: '[name].[contenthash].js',
+    // filename: 'board.bundle.js',
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   module: {
     rules: [

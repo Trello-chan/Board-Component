@@ -4,14 +4,12 @@ import axios from 'axios';
 
 import Column from './Column';
 
-import { columnsData, listsData } from '../dummyData/data';
-
 class BoardService extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lists: listsData,
-      columns: columnsData
+      lists: {},
+      columns: []
     }
   }
 
@@ -19,12 +17,12 @@ class BoardService extends Component {
   componentDidMount() {
     let options = {
       params: {
-        board_id: 1
+        board_id: Math.ceil(Math.random() * 100)
       }
     }
 
     axios
-      .get('/api/cards', options)
+      .get('/board-api/cards', options)
       .then(({ data }) => this.setState({ lists: data.lists, columns: data.columns }))
       .catch(() => console.log('error in BoardService CDM'))
   }

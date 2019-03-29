@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
-import CardModal from './Card/CardOverlay';
+import CardModal from './CardOverlay/CardOverlay';
 
 const Card = ({ card, index, list }) => {
   const [showOverlay, setOverlay] = useState(false);

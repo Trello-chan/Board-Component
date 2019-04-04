@@ -10,8 +10,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './client/dist'),
-    filename: '[name].[contenthash].js',
-    // filename: 'board.bundle.js',
+    filename: '[name].bundle.js',
   },
   optimization: {
     splitChunks: {

@@ -46,7 +46,6 @@ class Column extends Component {
 
 const Container = styled.div`
   color: #17394d;
-  font-family: Helvetica Neue,Arial,Helvetica,sans-serif;
   font-size: 14px;
   margin: 4px;
   display: flex;
@@ -61,7 +60,7 @@ const ListWrapper = styled.div`
   max-height: 100%;
   border: 1px solid lightgrey;
   border-radius: 3px;
-`
+`;
 
 const Title = styled.div`
   padding: 8px;

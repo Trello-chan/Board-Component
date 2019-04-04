@@ -84,7 +84,6 @@ const CardHeader = styled.div`
 `;
 
 const CardHeaderTextArea = styled.textarea`
-  background-color: #ebeef0;
   border-radius: 3px;
   border-width: 0px;
   color: #17394d;

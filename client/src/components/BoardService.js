@@ -27,7 +27,6 @@ class BoardService extends Component {
       .catch(() => console.log('error in BoardService CDM'))
   }
 
-
   onCardDragEnd = (result) => {
     let { destination, source, type } = result;
 
@@ -42,12 +41,15 @@ class BoardService extends Component {
   }
 
   handleCardChange = (destination, source) => {
+    let sourceId = source.droppableId.split('.')[1];
+    let destinationId = destination.droppableId.split('.')[1];
+
     let lists = {...this.state.lists};
-    let sourceList = {...lists[source.droppableId.split('.')[1]]};
-    let destinationList = {...lists[destination.droppableId.split('.')[1]]};
+    let sourceList = sourceId === destinationId ? lists[sourceId] : {...lists[sourceId]};
+    let destinationList = {...lists[destinationId]};
     destinationList.cards.splice(destination.index, 0, sourceList.cards.splice(source.index, 1)[0]);
-    lists[destination.droppableId.split('.')[1]] = destinationList;
-    lists[source.droppableId.split('.')[1]] = sourceList;
+    lists[sourceId] = sourceList;
+    lists[destinationId] = destinationList;
     this.setState({ lists });
   }
 
@@ -91,12 +93,12 @@ class BoardService extends Component {
 const BoardServiceContainer = styled.div`
   display: inline-flex;
   height: 90vh;
-`
+`;
 
 const ColumnContainer = styled.div`
   display: flex;
   max-height: 90vh;
-  background-color: ${props => props.isDraggingOver ? 'rgba(100,100,100,0.5)' : 'white'};
-`
+  background-color: ${props => props.isDraggingOver ? 'rgba(100,100,100,0.5)' : 'rgba(0,0,0,0);'};
+`;
 
 export default BoardService;

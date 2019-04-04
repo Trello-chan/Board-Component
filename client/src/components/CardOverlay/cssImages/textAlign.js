@@ -1,5 +1,4 @@
 import React from 'react';
-const styled = window.styled;
 
 const TextAlignImage = () =>
   <TextAlignContainer>

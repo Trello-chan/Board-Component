@@ -9,7 +9,7 @@
 Mock of Trello's draggable card component feature broken up into its own microservice.  All the components are brought together by the Proxy Server
 
 ## Preview
-![2019-06-07]('demo/Board recording.gif')
+![2019-06-07 board demo](demo/Board recording.gif)
 
 ## Features
 - On load, queries for a random board/card from PostgreSQL DBMS hosted on AWS RDS

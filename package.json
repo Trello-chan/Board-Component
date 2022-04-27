@@ -34,7 +34,7 @@
     "babel-loader": "^8.0.4",
     "compression-webpack-plugin": "^2.0.0",
     "faker": "^4.1.0",
-    "grunt": "^1.0.3",
+    "grunt": "^1.5.2",
     "grunt-aws": "^0.7.1",
     "grunt-contrib-connect": "^2.0.0",
     "nodemon": "^1.18.9",
